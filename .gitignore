@@ -1,0 +1,10 @@
+# created by virtualenv automatically
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+venv/
+Lib/
+include/
+*.sqlite3
+.env

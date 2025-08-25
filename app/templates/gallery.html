@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="dashboard">
+    <div class="top">
+        <i class="uil uil-bars sidebar-toggle"></i>
+        <p class="logo">Campus <b style="color: #6A0DAD;">Connect</b></p>
+    </div>
+
+    <!-- Photos Section -->
+    <div class="photos">
+        <h2>Event Photos</h2>
+        <div class="photo-gallery">
+            {% for media in gallery %}
+                {% if media.photo_url %}
+                <div class="photo-item">
+                    <img src="{{ media.photo_url }}" alt="{{ media.photo_name }}" style="max-width: 100%; height: auto;">
+                    <p>{{ media.photo_name }}</p>
+                </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+
+        {% if is_club_leader %}
+        <button onclick="document.getElementById('photo-form').style.display='block'">Add Photo</button>
+        
+        <div id="photo-form" style="display: none; margin-top: 20px;">
+            <form method="POST">
+                <input type="text" name="photo_name" placeholder="Photo Name" required>
+                <input type="url" name="photo_url" placeholder="Photo URL" required>
+                <button type="submit" name="add_photo">Add Photo</button>
+            </form>
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- Videos Section -->
+    <div class="videos">
+        <h2>Event Videos</h2>
+        <div class="video-gallery">
+            {% for media in gallery %}
+                {% if media.video_url %}
+                <div class="video-item">
+                    <iframe width="560" height="315" 
+                            src="https://www.youtube.com/embed/{{ media.video_url }}" 
+                            frameborder="0" 
+                            allowfullscreen></iframe>
+                    <p>{{ media.video_name }}</p>
+                </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+
+        {% if is_club_leader %}
+        <button onclick="document.getElementById('video-form').style.display='block'">Add Video</button>
+        
+        <div id="video-form" style="display: none; margin-top: 20px;">
+            <form method="POST">
+                <input type="text" name="video_name" placeholder="Video Name" required>
+                <input type="text" name="video_url" placeholder="YouTube Video ID" required>
+                <small>Enter just the YouTube video ID (e.g., dQw4w9WgXcQ)</small>
+                <button type="submit" name="add_video">Add Video</button>
+            </form>
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+<style>
+    .photo-gallery, .video-gallery {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 20px;
+        margin: 20px 0;
+    }
+    
+    .photo-item, .video-item {
+        border: 1px solid #ddd;
+        padding: 15px;
+        border-radius: 8px;
+    }
+    
+    .photo-item img {
+        width: 100%;
+        height: auto;
+        border-radius: 5px;
+    }
+    
+    .video-item iframe {
+        width: 100%;
+        aspect-ratio: 16/9;
+        border-radius: 5px;
+    }
+    
+    button {
+        background: #6A0DAD;
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 5px;
+        cursor: pointer;
+        margin: 10px 0;
+    }
+    
+    input {
+        display: block;
+        width: 100%;
+        padding: 8px;
+        margin: 5px 0 15px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+    }
+</style>
+
+<script>
+    // Simple toggle for forms
+    function toggleForm(formId) {
+        const form = document.getElementById(formId);
+        form.style.display = form.style.display === 'none' ? 'block' : 'none';
+    }
+</script>
+{% endblock %}
