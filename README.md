@@ -119,9 +119,3 @@ flask run
 - Integration with college authentication system  
 - Push/email notifications  
 - Advanced analytics for clubs  
-
----
-
-## 👥 Contributors
-- **Your Name** – Developer  
-- **Team Members (if any)**  
